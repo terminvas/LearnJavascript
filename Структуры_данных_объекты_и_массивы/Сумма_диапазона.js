@@ -5,4 +5,4 @@ function range(firstIndex, endIndex, step) {
    };
    return result
 };
-console.log(range(-34, 79, 13))
+console.log(range(-342, 799, 131))
