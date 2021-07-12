@@ -1,8 +1,8 @@
 function range(firstIndex, endIndex, step) {
    let result = [];
-   for (let index = firstIndex; (index <= Math.max(firstIndex,endIndex)) && (index >= Math.min(firstIndex,endIndex)); index += step) {
+   for (let index = firstIndex; (index <= Math.max(firstIndex, endIndex)) && (index >= Math.min(firstIndex, endIndex)); index += step) {
       result.push(index);
    };
    return result
 };
-console.log(range(100, 50, 7))
+console.log(range(1001, 50, -17))
