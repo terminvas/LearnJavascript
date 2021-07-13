@@ -15,10 +15,25 @@ function arrayToList(array) {
 console.log(arrayToList([1, 2, 3]));
 
 function listToArray(list) {
-   
+   let array = [];
+   while (list !== null) {
+      array.push(list.value);
+      list = list.rest;
+   }
    return array
 }
+console.log(listToArray({ value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }));
+console.log(listToArray(arrayToList([10, 20, 30]))); // → [10, 20, 30];
 
+function prepend(val, res) {
+   let list = { value: val, rest: res };
+   return list
+}
+console.log(prepend(10, prepend(20, null)));    // → {value: 10, rest: {value: 20, rest: null}}
+
+function nth(list, index) {
+
+}
 /*
    Объекты могут быть использованы для построения различных структур данных. Часто встречающаяся структура – список – связанный набор объектов, где первый объект содержит ссылку на второй, второй – на третий, и т.п.
          var list = {
