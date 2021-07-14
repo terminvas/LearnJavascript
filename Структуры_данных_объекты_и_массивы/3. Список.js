@@ -10,7 +10,7 @@ function arrayToList(array) {
    return list
 };
 
-//console.log(arrayToList([1, 2, 3]));
+//console.log(arrayToList([1, 2, 4]));
 
 function listToArray(list) {
    let array = [];
