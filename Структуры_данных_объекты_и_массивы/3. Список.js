@@ -1,9 +1,7 @@
 function arrayToList(array) {
-   let list = {
-      value: array[array.length - 1],
-      rest: null
-   };
-   for (let i = array.length - 2; i >= 0; i--) {
+   let len = array.length;
+   let list = null;
+   for (let i = len - 1; i >= 0; i--) {
       list = {
          value: array[i],
          rest: list
@@ -12,7 +10,7 @@ function arrayToList(array) {
    return list
 };
 
-console.log(arrayToList([1, 2, 3]));
+//console.log(arrayToList([1, 2, 3]));
 
 function listToArray(list) {
    let array = [];
@@ -22,18 +20,50 @@ function listToArray(list) {
    }
    return array
 }
-console.log(listToArray({ value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }));
-console.log(listToArray(arrayToList([10, 20, 30]))); // → [10, 20, 30];
+//console.log(listToArray({ value: 1, rest: { value: 2, rest: { value: 3, rest: null } } }));
+//console.log(listToArray(arrayToList([10, 20, 30]))); // → [10, 20, 30];
 
 function prepend(val, res) {
    let list = { value: val, rest: res };
    return list
 }
-console.log(prepend(10, prepend(20, null)));    // → {value: 10, rest: {value: 20, rest: null}}
+//console.log(prepend(10, prepend(20, null)));    // → {value: 10, rest: {value: 20, rest: null}}
 
+/* function nth(list, index) {
+   if (index < 0) return undefined;
+   let i = 0;
+   while (i < index && list !== null) {
+      //console.log(list.value, list.rest, ' i = ', i);
+      list = list.rest;
+      i++;
+   }
+   if (list !== null) { return list.value } else return undefined
+} */
+
+// Рекурсія
 function nth(list, index) {
-
+   if (index < 0 || list == null) { return undefined }
+   else
+      if (index == 0) {
+         return list.value;
+      }
+      else {
+         return nth(list.rest, index - 1);
+      }
 }
+
+/* // Ще один варіант рекурсії
+function nth(list, n) {
+   if (!list) return undefined;
+   else if (n == 0) return list.value;
+   else {
+      console.log(list);
+      return nth(list.rest, n - 1);
+   }
+} */
+
+console.log(nth({ value: 11, rest: { value: 12, rest: { value: 13, rest: { value: 17, rest: null } } } }, -2));
+console.log(nth(arrayToList([10, 20, 30, 40, 50, 60]), 3)); // → 50
 /*
    Объекты могут быть использованы для построения различных структур данных. Часто встречающаяся структура – список – связанный набор объектов, где первый объект содержит ссылку на второй, второй – на третий, и т.п.
          var list = {
