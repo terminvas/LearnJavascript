@@ -50,8 +50,11 @@ ancestry.forEach(element => {
    function f(value) { return value[0] == century }
    var index = result.findIndex(f);
    if (index == -1) {  //елемента "номер століття" ще немає
+      // додаємо століття в кінець масиву
       let z = []; z.push(century); result.push(z);
+      // додаємо порожній масив в кінець останнього елемента
       result[result.length - 1].push([]);
+      // в порожній масив додаємо роки життя
       result[result.length - 1][1].push(element.died - element.born);
    } else { // таке століття вже є
       result[index][1].push(element.died - element.born); //додаємо нові роки
