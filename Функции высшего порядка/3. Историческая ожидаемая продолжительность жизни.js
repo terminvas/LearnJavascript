@@ -64,8 +64,8 @@ for (let index = 0; index < result.length; index++) {
       return a + b
    }) / result[index][1].length) / 10;
 }
-//Сортуємо числа в лексикографічному порядку
-result.sort();
+//Сортуємо рядки в порядку зростання перших індексів (індекс 0)
+result.sort((a, b) => (a[0] - b[0]));
 
 // Виводимо результат: 
 for (let index = 0; index < result.length; index++) {
