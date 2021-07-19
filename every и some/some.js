@@ -1,7 +1,7 @@
 // Повертає true, якщо хоча б один елемент масиву повертає true логічної функції foo
 function some(array, foo) {
-   for (let i = 0; i < array.length; i++) {
-      if (foo(array[i])) return true;
+   for (let element of array) {
+      if (foo(element)) return true;
    }
    return false
 }

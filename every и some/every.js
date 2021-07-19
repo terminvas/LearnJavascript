@@ -1,7 +1,7 @@
 // Повертає true, якщо всі елементи масиву повертають true логічної функції foo
 function every(array, foo) {
-   for (let i = 0; i < array.length; i++) {
-      if (!foo(array[i])) return false;
+   for (let element of array) {
+      if (!foo(element)) return false;
    }
    return true
 }
