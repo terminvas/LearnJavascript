@@ -1,4 +1,4 @@
-let ANCESTRY_FILE = JSON.stringify([
+var ANCESTRY_FILE = JSON.stringify([
    { "name": "Carolus Haverbeke", "sex": "m", "born": 1832, "died": 1905, "father": "Carel Haverbeke", "mother": "Maria van Brussel" },
    { "name": "Emma de Milliano", "sex": "f", "born": 1876, "died": 1956, "father": "Petrus de Milliano", "mother": "Sophia van Damme" },
    { "name": "Maria de Rycke", "sex": "f", "born": 1683, "died": 1724, "father": "Frederik de Rycke", "mother": "Laurentia van Vlaenderen" },
@@ -39,60 +39,26 @@ let ANCESTRY_FILE = JSON.stringify([
    { "name": "Maria Sturm", "sex": "f", "born": 1835, "died": 1917, "father": "Charles Sturm", "mother": "Seraphina Spelier" },
    { "name": "Jacobus Bernardus van Brussel", "sex": "m", "born": 1736, "died": 1809, "father": "Jan van Brussel", "mother": "Elisabeth Haverbeke" }
 ]);
+var ancestry = JSON.parse(ANCESTRY_FILE); // Перетворюємо JSON-фвйл в Object
 
-let ancestry = JSON.parse(ANCESTRY_FILE); // Перетворюємо JSON-файл в Object
+// Сортуємо упорядку спадання років народження
+// ancestry.sort((a, b) => b.born - a.born);
+// console.log(ancestry);
 
-let result = [];
-ancestry.forEach(element => {
-   // Визначаємо століття
-   let century = Math.ceil(element.died / 100);
-   // Знаходимо індекс масива із номером століття century
-   function f(value) { return value[0] == century }
-   var index = result.findIndex(f);
-   if (index == -1) {  // <-- елемента "номер століття" ще немає
-      // додаємо століття в кінець масива
-      let z = []; z.push(century); result.push(z);
-      // додаємо порожній масив в кінець останнього елемента
-      result[result.length - 1].push([]);
-      // в порожній масив додаємо роки життя
-      result[result.length - 1][1].push(element.died - element.born);
-   } else { // таке століття вже є
-      result[index][1].push(element.died - element.born); // <-- додаємо нові роки
+let sum = 0, count = 0;
+ancestry.forEach((element, index, array) => {
+   let indexBornMother = array.findIndex((elem) => element.mother == elem.name);
+   if (indexBornMother != -1) {
+      sum += element.born - array[indexBornMother].born;
+      count++;
    }
 });
+console.log(Math.round(10 * sum / count) / 10);
+// → 31.2
+// Приклад виводу елементів масива з вказаною властивістю
+//[4, 6, 7, 12, 5, 71, 100, 101].forEach(function (elem) { if (elem % 4 == 0) return console.log(elem) });
 
-// Обчислюємо середній вік
-for (let index = 0; index < result.length; index++) {
-   result[index][1] = Math.round(10 * result[index][1].reduce(function (a, b) {
-      return a + b
-   }) / result[index][1].length) / 10;
-}
-//Сортуємо рядки в порядку зростання перших індексів (індекс 0)
-result.sort((a, b) => (a[0] - b[0]));
-
-// Виводимо результат: 
-for (let index = 0; index < result.length; index++) {
-   console.log(result[index][0], result[index][1]);
-}
 /*
-
-result = [
-            [20, [73,80,90,91,92,82]],
-            [18, [41,34,28,51,67,63,45,6,43,68,41,75,69,71,61,54,50,76,60]],
-            [19, [72,45,33,65,41,73]],
-            [16, [47,40]],
-            [21, [94]],
-            [17, [40,66,45,42,63]]
-         ]
-
-// Тут ваш код
-
-   // → 16: 43.5
-   //   17: 51.2
-   //   18: 52.8
-   //   19: 54.8
-   //   20: 84.7
-   //   21: 94
-   Мы считали, что только последнее поколение людей дожило до 90 лет. Давайте рассмотрим этот феномен поподробнее. Подсчитайте средний возраст людей для каждого из столетий. Назначаем столетию людей, беря их год смерти, деля его на 100 и округляя: Math.ceil(person.died / 100).
-
+   Используя набор данных из примера, подсчитайте среднюю разницу в возрасте между матерями и их детьми (это возраст матери во время появления ребёнка). Можно использовать функцию average, приведённую в главе.
+   Обратите внимание – не все матери, упомянутые в наборе, присутствуют в нём. Здесь может пригодиться объект byName, который упрощает процедуру поиска объекта человека по имени.
 */
