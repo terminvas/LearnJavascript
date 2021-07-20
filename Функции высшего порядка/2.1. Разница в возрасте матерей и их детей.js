@@ -39,11 +39,11 @@ var ANCESTRY_FILE = JSON.stringify([
    { "name": "Maria Sturm", "sex": "f", "born": 1835, "died": 1917, "father": "Charles Sturm", "mother": "Seraphina Spelier" },
    { "name": "Jacobus Bernardus van Brussel", "sex": "m", "born": 1736, "died": 1809, "father": "Jan van Brussel", "mother": "Elisabeth Haverbeke" }
 ]);
-var ancestry = JSON.parse(ANCESTRY_FILE); // Перетворюємо JSON-фвйл в Object
+var ancestry = JSON.parse(ANCESTRY_FILE); // Перетворюємо JSON-фвйл в масив об'єктів
 
 // Сортуємо упорядку спадання років народження
 // ancestry.sort((a, b) => b.born - a.born);
-// console.log(ancestry);
+console.log(ancestry);
 
 let sum = 0, count = 0;
 ancestry.forEach((element, index, array) => {
